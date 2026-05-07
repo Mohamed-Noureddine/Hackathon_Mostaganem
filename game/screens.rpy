@@ -370,6 +370,44 @@ screen main_menu():
             text "[config.version]":
                 style "main_menu_version"
 
+# Variable to track which item is being displayed
+default current_item_desc = ""
+
+screen item_desc_window():
+    modal True
+    zorder 100
+
+    key "dismiss" action [
+        SetVariable("current_item_desc", ""),
+        SetVariable("current_item_story", ""),
+        Hide("item_desc_window")
+    ]
+
+    add "#000a" at Transform(alpha=0.5)
+
+    frame:
+        align (0.5, 0.45)
+        xmaximum 900
+        background "#2a1e0b"
+        padding (30, 30)
+
+        vbox:
+            spacing 20
+
+            text "[current_item_desc]" size 28 color "#eeddcc" layout "subtitle" xalign 0.5 text_align 0.5
+
+            text "[current_item_story]" size 24 color "#d8c8aa" xalign 0.5 text_align 0.5
+
+            textbutton _("Close X"):
+                align (0.5, 1.0)
+                text_size 24
+                text_color "#fff"
+                action [
+                    SetVariable("current_item_desc", ""),
+                    SetVariable("current_item_story", ""),
+                    Hide("item_desc_window")
+                ]
+
 
 style main_menu_frame is empty
 style main_menu_vbox is vbox
